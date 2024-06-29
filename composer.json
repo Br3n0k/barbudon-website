@@ -21,7 +21,8 @@
     ],
     "classmap": [
       "app/Config/",
-      "app/Controllers/"
+      "app/Controllers/",
+      "app/Models/"
     ]
   },
   "scripts": {
