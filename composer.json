@@ -1,0 +1,47 @@
+{
+  "name":"brendownferreira/barbudonwebsite",
+  "type": "website",
+  "description": "Projeto do website para vendas de cheat Barbudon",
+  "keywords": ["barbudon","cheat","website"],
+  "homepage": "https://barbudon.brendown.tech/",
+  "version": "1.0.0",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2",
+    "ext-curl": "*",
+    "ext-pdo": "*",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+
+    },
+    "files": [
+
+    ],
+    "classmap": [
+      "app/Config/",
+      "app/Controllers/"
+    ]
+  },
+  "scripts": {
+    "post-autoload-dump": [],
+    "post-update-cmd": [],
+    "post-root-package-install": [],
+    "post-create-project-cmd": [],
+    "cache": []
+  },
+  "extra": [],
+  "config":
+  {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
