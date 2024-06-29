@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Config;
-
-use JetBrains\PhpStorm\NoReturn;
 
 class Aplication
 {
@@ -18,22 +15,46 @@ class Aplication
     }
 
     // Função de configuração da aplicação
-    public function configure($root_path, $request_url): static
+    public function configure($root_path, $request_url): bool
     {
-        // Define a propriedade de rooth path do sistema
-        (!empty($root_path)) ? $this->root_path = $root_path : $this->error('501', 'Falha na definição da pasta raiz do sistema.');
+        // Verifica se recebeu conteudo de root path e ele não é nulo
+        if(empty($root_path))
+        {
+            // Retorna erro caso o root path seja nulo
+            $this->error('501', 'Falha na definição da pasta raiz do sistema.');
 
-        // Define a propridade de request url
-        (!empty($request_url)) ? $this->request_url = $request_url : $this->error('501', 'Falha no armazenamento da URL solicitada.');
-        
-        return $this;
+            // Retorna falso
+            return false;
+        }
+        else
+        {
+            // Define a propriedade e root path para a classe da aplicação
+            $this->root_path = $root_path;
+
+            // Verifica se recebeu o conteudo de requisição da URL e ele não é nulo
+            if(empty($request_url))
+            {
+                // Retorna erro caso a requisição da URL seja nulo
+                $this->error('501', 'Falha no armazenamento da URL solicitada.');
+
+                // Retorna falso
+                return false;
+            }
+            else
+            {
+                // Define a propriedade e requisição da URL para a classe da aplicação
+                $this->request_url = $request_url;
+
+                // Retorna verdadeiro
+                return true;
+            }
+        }
     }
 
     // Função que vai trabalhar os erros no sistema
-    #[NoReturn] public function error($code, $message): void
+    public function error($code, $message): void
     {
         http_response_code($code);
         echo $message;
-        exit();
     }
 }
