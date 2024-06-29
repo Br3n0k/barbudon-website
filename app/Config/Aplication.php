@@ -1,6 +1,9 @@
 <?php
 namespace App\Config;
 
+use JetBrains\PhpStorm\NoReturn;
+use App\Models\Database;
+
 class Aplication
 {
     public string $root_path;
@@ -8,10 +11,34 @@ class Aplication
     public string $request_url;
     public array $route;
 
+    public int $error_code;
+    public string $error_message;
+
     // Classe construtora
     public function __construct()
     {
 
+    }
+
+    // Função que vai iniciar a aplicação
+    public function start(): void
+    {
+        // Verifica se recebeu a requisição da URL e ele não é nulo
+        if(empty($this->request_url) OR empty($this->root_path))
+        {
+            // Define o retorno para o erro
+            $this->error_code = 500;
+            $this->error_message = 'Falha interna do sistema 2.';
+
+            // Retorna o erro
+            $this->error();
+        }
+        else
+        {
+            $database = new Database();
+
+            echo $this->request_url;
+        }
     }
 
     // Função de configuração da aplicação
@@ -20,8 +47,9 @@ class Aplication
         // Verifica se recebeu conteudo de root path e ele não é nulo
         if(empty($root_path))
         {
-            // Retorna erro caso o root path seja nulo
-            $this->error('501', 'Falha na definição da pasta raiz do sistema.');
+            // Define o retorno para o erro
+            $this->error_code = 501;
+            $this->error_message = 'Falha na definição da pasta raiz do sistema.';
 
             // Retorna falso
             return false;
@@ -34,8 +62,9 @@ class Aplication
             // Verifica se recebeu o conteudo de requisição da URL e ele não é nulo
             if(empty($request_url))
             {
-                // Retorna erro caso a requisição da URL seja nulo
-                $this->error('501', 'Falha no armazenamento da URL solicitada.');
+                // Define o retorno para o erro
+                $this->error_code = 501;
+                $this->error_message = 'Falha no armazenamento da URL solicitada.';
 
                 // Retorna falso
                 return false;
@@ -52,9 +81,21 @@ class Aplication
     }
 
     // Função que vai trabalhar os erros no sistema
-    public function error($code, $message): void
+    #[NoReturn] public function error(): void
     {
-        http_response_code($code);
-        echo $message;
+        // Verifica se a propriedade error_code foi inicializada
+        if(!empty($this->error_code) AND !empty($this->error_message))
+        {
+            // Define o retorno para o erro
+            http_response_code($this->error_code);
+            echo $this->error_message;
+        }
+        else
+        {
+            // Define o retorno para o erro
+            http_response_code(500);
+            echo 'Erro interno do sistema.';
+        }
+        exit();
     }
 }
