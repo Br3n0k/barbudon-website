@@ -63,6 +63,6 @@ class Router
         }
 
         // Chama o roteador
-        require_once($this->router_file);
+        include($this->router_file);
     }
 }
