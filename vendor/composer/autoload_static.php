@@ -63,6 +63,7 @@ class ComposerStaticInitca414e64aff914135e0c0f061c01d093
     public static $classMap = array (
         'App\\Config\\Aplication' => __DIR__ . '/../..' . '/app/Config/Aplication.php',
         'App\\Models\\Database' => __DIR__ . '/../..' . '/app/Models/Database.php',
+        'App\\Models\\Router' => __DIR__ . '/../..' . '/app/Models/Router.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',

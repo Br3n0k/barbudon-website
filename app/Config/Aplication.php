@@ -1,8 +1,18 @@
 <?php
+/**
+ * @class     : Aplication
+ * @version   : 1.0.0
+ * @author    : Brendown Ferreira
+ * @editor    : Brendown Ferreira
+ * @updated   : 2024
+ * Classe para gerenciar a aplicação de forma geral, sendo utilizada como o kernel do sistema
+ */
+
 namespace App\Config;
 
 use JetBrains\PhpStorm\NoReturn;
 use App\Models\Database;
+use App\Models\Router;
 
 class Aplication
 {
@@ -35,9 +45,10 @@ class Aplication
         }
         else
         {
+            // Instancia a classe de conexão com o banco de dados
             $database = new Database();
 
-            echo $this->request_url;
+            $router = new Router(route: $this->request_url, root_path: $this->root_path);
         }
     }
 
