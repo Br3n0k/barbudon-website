@@ -1,4 +1,12 @@
 <?php
+/**
+ * @class     : Database
+ * @version   : 1.0.0
+ * @author    : Brendown Ferreira
+ * @editor    : Brendown Ferreira
+ * @updated   : 2024
+ * Classe que gerencia a conexão com o banco de dados utilizando as informações de conexão do dotenv
+ */
 
 namespace App\Models;
 
