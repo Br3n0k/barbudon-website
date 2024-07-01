@@ -2,7 +2,7 @@
     <div class="container w-100">
         <a class="navbar-brand d-flex align-items-center logo" href="<?=$_ENV['APP_URL']?>">
             <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
-                <img src="<?=$_ENV['APP_URL'].'img/icons/origin.png'?>" style="max-height: 40px;" alt="Logo">
+                <img src="<?=$_ENV['APP_URL'].'icons/origin.png'?>" style="max-height: 40px;" alt="Logo">
             </span>
             <span><?=$_ENV['APP_NAME']?></span>
         </a>
