@@ -4,7 +4,7 @@
  * @version   : 1.0.0
  * @author    : Brendown Ferreira
  * @editor    : Brendown Ferreira
- * @updated   : 2024
+ * @updated   : 01/07/2024
  * Classe para gerenciar a aplicação de forma geral, sendo utilizada como o kernel do sistema
  */
 
@@ -16,13 +16,32 @@ use App\Models\Router;
 
 class Aplication
 {
+    // Propriedade que vai conter o caminho fisico no servidor para importação de arquivos na raiz.
     public string $root_path;
+
+    // Propriedade que futuramente vai armazenar o tipo da requisição vinda da URL.
     public string $request_method;
+
+    // Propriedade que vai armazenar a requisição na URL para ser tratada pelas classes posteriores.
     public string $request_url;
+
+    // Propriedade que vai armazenar a rota já em array tratada para o sistema.
     public array $route;
 
+    // Propriedade que vai armazenar o roteador da rota
+    public string $router_file;
+
+    // Propriedade que vai conter o codigo do errro na aplicação
     public int $error_code;
+
+    // Propriedade que vai conter a descrição do erro na aplicação
     public string $error_message;
+
+    // Dados para comunicação entre os arquivos importados da aplicação
+    public array $data;
+
+    // Propriedade que vai armazenar a conexão do PDO com o banco de dados
+    public mixed $pdo;
 
     // Classe construtora
     public function __construct()
@@ -45,10 +64,26 @@ class Aplication
         }
         else
         {
-            // Instancia a classe de conexão com o banco de dados
+            // Instancia a classe de conexão com o banco de dados, e abre a conexão
             $database = new Database();
 
-            $router = new Router(route: $this->request_url, root_path: $this->root_path);
+            // Instancia a classe de roteamento
+            $router = new Router();
+
+            // Passsa para classe de rotas o root path da aplicação
+            $router->root_path = $this->root_path;
+
+            // Passa a requisição da url para a propriedade do roteador
+            $router->route = $this->request_url;
+
+            // Chama a função que vai tratar a rota com o roteador
+            $this->route = $router->get_route();
+
+            // Chama a função que vai tratar a rota com o roteador
+            $this->router_file = $router->get_router();
+
+            // Inclui e carrega o arquivo do roteador
+            include_once($this->router_file);
         }
     }
 
@@ -84,6 +119,9 @@ class Aplication
             {
                 // Define a propriedade e requisição da URL para a classe da aplicação
                 $this->request_url = $request_url;
+
+                // Define a propriedade do tipo de requisição para a classe da aplicação
+                $this->request_method = $_SERVER['REQUEST_METHOD'];
 
                 // Retorna verdadeiro
                 return true;
