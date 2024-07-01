@@ -16,7 +16,7 @@ class Router
     public string $root_path;
     public string $router_file;
 
-    // Classe que vai tratar a requisição na url para um array
+    // Método que vai tratar a requisição na url para um array
     public function get_route(): array
     {
         // Define um array de retorno vazio para caso de erros
@@ -44,7 +44,7 @@ class Router
         }
     }
 
-    // Função que vai identificar o roteador correspondente a requisição da URL
+    // Método que vai identificar o roteador correspondente a requisição da URL
     public function get_router(): string
     {
         // Verifica o indice 0 do array de rota, a definir o padrão 'home' caso não tenha nenhum valor

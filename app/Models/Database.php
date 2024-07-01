@@ -4,7 +4,7 @@
  * @version   : 1.0.0
  * @author    : Brendown Ferreira
  * @editor    : Brendown Ferreira
- * @updated   : 2024
+ * @updated   : 01/07/2024
  * Classe que gerencia a conexão com o banco de dados utilizando as informações de conexão do dotenv
  */
 
@@ -15,44 +15,60 @@ use PDOException;
 
 class Database
 {
-    private $host;
-    private $port;
-    private $database;
-    private $user;
-    private $pass;
-    private $charset;
-    private $pdo;
-    private $error_code;
-    private $error;
-    private $stmt;
+    private string $host;
+    private int $port;
+    private string $database;
+    private string $user;
+    private string $pass;
+    private string $charset;
+    private mixed $pdo;
+    public int $error_code;
+    public string $error;
+    private mixed $stmt;
+    private mixed $dns;
+    private mixed $dns_options;
 
+    // Classe construtora
     public function __construct()
     {
+        // Realiza a alimentação das propriedades da classe com as informações do dotenv
         $this->host = $_ENV['DATABASE_HOST'];
         $this->database = $_ENV['DATABASE_NAME'];
         $this->user = $_ENV['DATABASE_USER'];
         $this->pass = $_ENV['DATABASE_PASSWORD'];
         $this->port = $_ENV['DATABASE_PORT'];
         $this->charset = $_ENV['DATABASE_CHARSET'];
+    }
 
-        $dns = "mysql:host=$this->host;dbname=$this->database;charset=$this->charset;port=$this->port";
-        $options = [
+    // Método para Abrir a conexão com o banco de dados
+    public function open(): bool
+    {
+        // Constroi o DNS de abertura da conexão com o banco de dados
+        $this->dns = "mysql:host=$this->host;dbname=$this->database;charset=$this->charset;port=$this->port";
+
+        // Constroi os parametros de opções para abertura da conexão com o banco de dados com o PDO
+        $this->dns_options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false
-        ];
+            ];
 
         try
         {
-            $this->pdo = new PDO($dns, $this->user, $this->pass, $options);
+            $this->pdo = new PDO($this->dns, $this->user, $this->pass, $this->dns_options);
         }
         catch (PDOException $e)
         {
+            // Armazena o codigo de erro e a mensagem de erro
             $this->error_code = $e->getCode();
             $this->error = $e->getMessage();
-            echo "Falha de conexão com o PDO: " . $this->error;
-            exit();
+
+            // Retorna falso para sinalizar que a abertura da conexão falhou
+            return false;
         }
+
+        // Retorna verdadeiro para sinalizar a abertura da conexão
+        return true;
     }
 
     // Método para preparar a query

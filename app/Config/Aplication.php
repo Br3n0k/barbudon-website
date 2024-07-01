@@ -41,7 +41,10 @@ class Aplication
     public array $data;
 
     // Propriedade que vai armazenar a conexão do PDO com o banco de dados
-    public mixed $pdo;
+    public mixed $database;
+
+    // Propriedade que vai armazenar a instância da classe de Rotas
+    public mixed $router;
 
     // Classe construtora
     public function __construct()
@@ -65,25 +68,38 @@ class Aplication
         else
         {
             // Instancia a classe de conexão com o banco de dados, e abre a conexão
-            $database = new Database();
+            $this->database = new Database();
 
             // Instancia a classe de roteamento
-            $router = new Router();
+            $this->router = new Router();
 
             // Passsa para classe de rotas o root path da aplicação
-            $router->root_path = $this->root_path;
+            $this->router->root_path = $this->root_path;
 
             // Passa a requisição da url para a propriedade do roteador
-            $router->route = $this->request_url;
+            $this->router->route = $this->request_url;
 
             // Chama a função que vai tratar a rota com o roteador
-            $this->route = $router->get_route();
+            $this->route = $this->router->get_route();
 
             // Chama a função que vai tratar a rota com o roteador
-            $this->router_file = $router->get_router();
+            $this->router_file = $this->router->get_router();
 
-            // Inclui e carrega o arquivo do roteador
-            include_once($this->router_file);
+            // Verificar se a conexão com o banco de dados falhou
+            if($this->database->open() === false)
+            {
+                // Define o retorno para o erro
+                $this->error_code = $this->database->error_code;
+                $this->error_message = $this->database->error;
+
+                // Retorna o método de erro
+                $this->error();
+            }
+            else
+            {
+                // Inclui e carrega o arquivo do roteador
+                include_once($this->router_file);
+            }
         }
     }
 
