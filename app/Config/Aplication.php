@@ -46,10 +46,16 @@ class Aplication
     // Propriedade que vai armazenar a instância da classe de Rotas
     public mixed $router;
 
+    // Propriedade que vai armazenar o controlador da requisição
+    public string $controller;
+
+    // Propriedade que vai armazenar a array de respostas da API
+    public array $api_response;
+
     // Classe construtora
     public function __construct()
     {
-
+        // Pendente de implementação
     }
 
     // Função que vai iniciar a aplicação

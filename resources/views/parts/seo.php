@@ -12,3 +12,5 @@
 <link rel="mask-icon" href="<?=$_ENV['APP_URL'].'img/icons/safari-pinned-tab.svg'?>" color="#5bbad5">
 <meta name="apple-mobile-web-app-title" content="<?=$_ENV['APP_NAME']?>">
 <meta name="application-name" content="<?=$_ENV['APP_NAME']?>">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">

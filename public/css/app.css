@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+:root {
+    /* Cores Gerais */
+    --primary-color: #813636;
+    --secondary-color: #272727;
+
+    /* Background */
+    --dark-background-color: #121212;
+    --dark-background-secundary-color: #200000;
+    --light-background-color: #ffffff;
+
+    /* Texto */
+    --text-color: #ffffff;
+}

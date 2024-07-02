@@ -1,0 +1,44 @@
+/* Background Modo Escuro */
+[data-bs-theme="dark"] body
+{
+    background-image: linear-gradient(to right top, var(--dark-background-secundary-color) 0%, var(--dark-background-color) 100%);
+}
+
+#sub-navbar
+{
+    max-width: 960px;
+    mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
+    margin: 0 auto;
+    padding: 0;
+}
+
+#sub-navbar ul {
+    text-align: center;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(129, 54, 54, 0.25) 25%, rgba(129, 54, 54, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px var(--primary-color);
+}
+
+#sub-navbar ul li {
+    display: inline-block;
+}
+
+#sub-navbar ul li a {
+    padding: 18px;
+    font-family: "Open Sans", serif;
+    text-transform:uppercase;
+    color: var(--text-color);
+    font-size: 18px;
+    text-decoration: none;
+    display: block;
+}
+
+#sub-navbar ul li a:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px var(--primary-color);
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#logo
+{
+    height: 150px;
+}

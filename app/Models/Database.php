@@ -25,8 +25,6 @@ class Database
     public int $error_code;
     public string $error;
     private mixed $stmt;
-    private mixed $dns;
-    private mixed $dns_options;
 
     // Classe construtora
     public function __construct()
@@ -44,10 +42,10 @@ class Database
     public function open(): bool
     {
         // Constroi o DNS de abertura da conexão com o banco de dados
-        $this->dns = "mysql:host=$this->host;dbname=$this->database;charset=$this->charset;port=$this->port";
+        $dns = "mysql:host=$this->host;dbname=$this->database;charset=$this->charset;port=$this->port";
 
         // Constroi os parametros de opções para abertura da conexão com o banco de dados com o PDO
-        $this->dns_options = [
+        $dns_options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false
@@ -55,7 +53,7 @@ class Database
 
         try
         {
-            $this->pdo = new PDO($this->dns, $this->user, $this->pass, $this->dns_options);
+            $this->pdo = new PDO($dns, $this->user, $this->pass, $dns_options);
         }
         catch (PDOException $e)
         {
