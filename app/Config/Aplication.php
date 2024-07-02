@@ -16,41 +16,50 @@ use App\Models\Router;
 
 class Aplication
 {
-    // Propriedade que vai conter o caminho fisico no servidor para importação de arquivos na raiz.
-    public string $root_path;
-
-    // Propriedade que futuramente vai armazenar o tipo da requisição vinda da URL.
-    public string $request_method;
-
-    // Propriedade que vai armazenar a requisição na URL para ser tratada pelas classes posteriores.
-    public string $request_url;
-
-    // Propriedade que vai armazenar a rota já em array tratada para o sistema.
-    public array $route;
-
-    // Propriedade que vai armazenar o roteador da rota
-    public string $router_file;
-
-    // Propriedade que vai conter o codigo do errro na aplicação
-    public int $error_code;
-
-    // Propriedade que vai conter a descrição do erro na aplicação
-    public string $error_message;
-
-    // Dados para comunicação entre os arquivos importados da aplicação
+    /**
+     *  Propriedades relacionadas a essa classe da aplicação de forma geral
+     */
+    // Propriedade que vai servir como array de transporte de dados
+    // entre diferentes arquivos incluidos por essa classe
     public array $data;
+    public string $root_path;   // Propriedade que vai armazenar o caminho fisico dos arquivos do sistema.
+    public string $request_method; // Propriedade que vai armazenar o metodo da requisição. (Inutil por enquanto)
+    public string $request_url;  // Propriedade que vai armazenar a requisição URI vinda da URL para ser tratada no roteamento do sistema.
 
-    // Propriedade que vai armazenar a conexão do PDO com o banco de dados
-    public mixed $database;
 
-    // Propriedade que vai armazenar a instância da classe de Rotas
-    public mixed $router;
+    /**
+     * Propriedades relacionadas ao roteamento e Model Router.php
+     */
+    public array $route;    // Propriedade que vai armazenar a rota já em array tratada na Router.php.
+    public string $router_file; // Propriedade que vai armazenar o arquivo roteador correspondente a requisição.
 
-    // Propriedade que vai armazenar o controlador da requisição
-    public string $controller;
 
-    // Propriedade que vai armazenar a array de respostas da API
-    public array $api_response;
+    /**
+     *  Propriedades relacionadas aos controllers
+     */
+    public string $controller;  // Propriedade que vai armazenar o controlador atual da requisição
+
+
+    /**
+     * Propriedades relacionadas a API do sistema
+     */
+    public array $api_response; // Propriedade que vai armazenar as respostas da API
+
+
+    /**
+     * Propriedades que irão armazenar outros models e classes a serem importadas durante o sistema
+     */
+    public mixed $database; // Propriedade que vai armazenar o model de Database.php
+    public mixed $router;   // Propriedade que vai armazenar o model de Router.php
+
+
+    /**
+     * Propriedades que irão armazenar indicadores de erros vindo da classe e outras classes do sistema
+     * para a classe geral da aplicação
+     */
+    public int $error_code; // Propriedade que vai armazenar os codigos de erro do sistema
+    public string $error_message;   // Propriedade que vai armazenas as mensagens de erro do sistema
+
 
     // Classe construtora
     public function __construct()
